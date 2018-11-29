@@ -11,7 +11,7 @@ int aiv_window_closed(uiWindow *window, void *data)
 //if called change the button text
 void button_pressed(uiButton* b,void *data)
 {
-    uiButtonSetText(b,"CIAO");
+    uiButtonSetText(b,"HELLO");
 }
 
 int main (int argc, char **argv)
@@ -33,8 +33,8 @@ int main (int argc, char **argv)
     //create button
     uiButton *button = uiNewButton("click me");
     uiButton *button2 = uiNewButton("ADD BUTTON");
-    uiButton *button3 = uiNewButton("TU ZIA");
-    uiButton *button4 = uiNewButton("TU MADRE");
+    uiButton *button3 = uiNewButton("EX 1");
+    uiButton *button4 = uiNewButton("EX 2");
     
     //create checkbox
     uiCheckbox *checkBox = uiNewCheckbox("Box");
