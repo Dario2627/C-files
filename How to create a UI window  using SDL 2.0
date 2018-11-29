@@ -1,0 +1,75 @@
+#include "ui.h"
+#include <string.h>
+#include <stdio.h>
+
+int aiv_window_closed(uiWindow *window, void *data)
+{
+    uiQuit();
+    return 1;
+}
+
+//if called change the button text
+void button_pressed(uiButton* b,void *data)
+{
+    uiButtonSetText(b,"CIAO");
+}
+
+int main (int argc, char **argv)
+{
+    //prepare the (useless) options structure
+    uiInitOptions options;
+    memset(&options, 0, sizeof(uiInitOptions));
+
+    //initialize lib UI
+    uiInit(&options);
+    //create a uiWindow
+    uiWindow *window = uiNewWindow("Boh",640,480,0);
+
+    uiWindowOnClosing(window,aiv_window_closed,NULL);
+
+    //create a vertical box
+    uiBox *vertical = uiNewVerticalBox();
+
+    //create button
+    uiButton *button = uiNewButton("click me");
+    uiButton *button2 = uiNewButton("ADD BUTTON");
+    uiButton *button3 = uiNewButton("TU ZIA");
+    uiButton *button4 = uiNewButton("TU MADRE");
+    
+    //create checkbox
+    uiCheckbox *checkBox = uiNewCheckbox("Box");
+    uiCheckbox *checkBox2 = uiNewCheckbox("Box2");
+    //create tab
+    uiTab *tab = uiNewTab();
+    
+
+    //EVENT ON BUTTON ONE CLICKED
+    uiButtonOnClicked(button,button_pressed,NULL);
+    
+    
+    //add UI on vertical box
+    uiBoxAppend(vertical,uiControl(button),0);
+    uiBoxAppend(vertical,uiControl(button2),0);
+    uiBoxAppend(vertical,uiControl(checkBox),0);
+    
+    
+    //ADD TAB TO VERTICAL
+    uiBoxAppend(vertical,uiControl(tab),0);
+    //ADD SOMETHINGS ON TAB
+    uiTabAppend(tab,"tab2",uiControl(checkBox2));
+    uiTabAppend(tab,"tab3",uiControl(button3));
+    uiTabAppend(tab,"tab4",uiControl(button4));
+
+    
+
+    //add vertical box to the window
+    uiWindowSetChild(window,uiControl(vertical));
+    
+
+    uiControlShow(uiControl(window));
+
+    //enter the libUI loop
+    uiMain();
+
+    return 0;
+}
